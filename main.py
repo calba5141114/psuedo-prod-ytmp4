@@ -57,11 +57,5 @@ def actor():
         return render_template("404.html", link=youtube_url)
 
 
-@app.route("/slow")
-@limiter.limit("1 per day")
-def slow():
-    return "24"
-
-
 if __name__ == "__main__":
     app.run()
