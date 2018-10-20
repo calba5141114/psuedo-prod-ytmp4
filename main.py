@@ -1,12 +1,13 @@
 from flask import Flask, request, Blueprint, render_template, send_from_directory, redirect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from helper import clear_dir, validate_str
 app = Flask(__name__)
 
 from pytube import YouTube
 import os
-import time
 
+# for accessing the directories and working with them
 current_directory_list = os.listdir(os.getcwd())
 current_directory = os.getcwd()
 
@@ -16,17 +17,6 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
-
-
-def clear_dir(current_directory, current_directory_list):
-    for item in current_directory_list:
-        if item.endswith(".mp4"):
-            os.remove(os.path.join(current_directory, item))
-
-
-def validate_str(str, val_str):
-    if val_str in str:
-        return True
 
 
 @app.route("/", methods=['GET'])
