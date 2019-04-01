@@ -26,7 +26,7 @@ limiter = Limiter(app, key_func=get_remote_address,
 @app.route("/", methods=['GET'])
 @limiter.exempt
 def index():
-    ''' index page is returned '''
+    """Returns Index Page."""
     clear_dir(downloads, downloads_list)
     return render_template("index.html")
 
@@ -34,8 +34,7 @@ def index():
 @app.route("/actor", methods=['POST'])
 @limiter.limit("50/hour")
 def actor():
-    ''' returns an mp4 file'''
-
+    """ Returns an MP4 File"""
     val_str = "youtube.com/watch?v="
     youtube_url = str(request.form['youtube_url'])
     val_str_res = validate_str(youtube_url, val_str)
@@ -47,26 +46,6 @@ def actor():
     except:
         clear_dir(downloads, downloads_list)
         return redirect('/')
-
-# @app.route("/actor", methods=['POST'])
-# @limiter.limit("50/hour")
-# def actor():
-
-#     val_str = "youtube.com/watch?v="
-#     youtube_url = str(request.form['youtube_url'])
-#     val_str_res = validate_str(youtube_url, val_str)
-
-#     try:
-#         if(val_str_res == True):
-#             yt = YouTube(youtube_url)
-#             # send_file(yt.streams.first().download())
-#             return redirect('/')
-#         else:
-#             print('youtube string not valid')
-#             return redirect('/')
-#     except Exception as e:
-#         print(e)
-#         return redirect('/')
 
 
 if __name__ == "__main__":
