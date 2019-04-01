@@ -8,7 +8,9 @@
 .vscode/
 tsconfig.json
 jsconfig.json
-
+/downloads
+/.vscode
+/__pycache__
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
